@@ -2,40 +2,34 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+
+import static lv.acodemy.constants.Generic.GOOGLE_URL;
+import static org.testng.Assert.assertEquals;
 
 public class TestChrome {
 
     ChromeDriver driver = new ChromeDriver();
 
     @AfterMethod
-
-    public  void tearDown(){
+    public void tearDown() {
         driver.close();
         driver.quit();
     }
 
     @Test
-
     public void chromeTest() {
-        ChromeDriver driver = new ChromeDriver();
-        driver.get("https://google.lv/?hl=en");
-
-     //   driver.findElement(By.xpath("<div class=\"QS5gu sy4vM\" role=\"none\">Accept all</div>"));
+        driver.get(GOOGLE_URL);
 
         WebElement acceptButton = driver.findElement(By.xpath("//button//div[contains(text(), 'Accept all')]"));
         acceptButton.click();
 
-        WebElement searchfield = driver.findElement(By.name("q"));
-        searchfield.sendKeys("acodemy");
+        WebElement searchField = driver.findElement(By.name("q"));
+        searchField.sendKeys("acodemy");
 
-        searchfield.sendKeys(Keys.ENTER);
+        searchField.sendKeys(Keys.ENTER);
 
-        Assert.assertEquals(driver.getTitle (), "acodemy - Google Search");
-
-        System.out.println();
-
+        assertEquals(driver.getTitle(), "acodemy - Google Search");
     }
 }
